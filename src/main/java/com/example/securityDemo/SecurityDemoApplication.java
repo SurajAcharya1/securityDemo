@@ -12,6 +12,7 @@ public class SecurityDemoApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SecurityDemoApplication.class, args);
+//        System.out.println(1/0);
         /*RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Object> response = restTemplate
                 .getForEntity("https://jsonplaceholder.typicode.com/posts/1", Object.class);
