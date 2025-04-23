@@ -3,6 +3,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
+                echo 'building the security demo application...'
                 sh 'mvn --version'
             }
         }
