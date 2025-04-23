@@ -41,7 +41,7 @@ public class authController {
 
     @PostMapping("/sign-in")
     public ResponseEntity<?> signIn(@RequestBody SignInRequestRecord signInRequestRecord) {
-//        System.out.println(signInRequestRecord.email().hashCode());
+        System.out.println(signInRequestRecord.email().hashCode());
         User user = new User();
         user.setName(signInRequestRecord.name());
         user.setPassword(signInRequestRecord.password());
