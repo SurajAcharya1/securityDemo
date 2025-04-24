@@ -26,5 +26,11 @@ pipeline {
                 bat 'docker run -d -p 8081:8080 --name security-demo-container security-demo-app'
             }
         }
+        stage('listRunningContainers') {
+            steps {
+                echo 'List of running docker containers: '
+                bat 'docker ps'
+            }
+        }
     }
 }
