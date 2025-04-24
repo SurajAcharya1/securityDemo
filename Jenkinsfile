@@ -11,7 +11,13 @@ pipeline {
         stage('build') {
             steps {
                 echo 'building the security demo application...'
-                bat 'mvn --version'
+                bat 'mvn clean package'
+            }
+        }
+        stage('createDockerImage') {
+            steps {
+                echo 'creating docker image of securityDemo...'
+                bat 'docker build -t security-demo-app .'
             }
         }
     }
