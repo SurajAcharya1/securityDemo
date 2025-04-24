@@ -8,7 +8,7 @@ pipeline {
                 bat 'docker --version'
             }
         }
-        stage('build') {
+        /* stage('build') {
             steps {
                 echo 'building the security demo application...'
                 bat 'mvn clean package'
@@ -25,7 +25,7 @@ pipeline {
                 echo 'running docker container...'
                 bat 'docker run -d -p 8081:8080 --name security-demo-container security-demo-app'
             }
-        }
+        } */
         stage('listRunningContainers') {
             steps {
                 echo 'List of running docker containers: '
