@@ -20,5 +20,11 @@ pipeline {
                 bat 'docker build -t security-demo-app .'
             }
         }
+        stage('runDockerContainer') {
+            steps {
+                echo 'running docker container...'
+                bat 'docker run -d -p 8081:8080 --name security-demo-container security-demo-app'
+            }
+        }
     }
 }
