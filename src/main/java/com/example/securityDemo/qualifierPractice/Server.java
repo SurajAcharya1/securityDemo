@@ -1,4 +1,5 @@
 package com.example.securityDemo.qualifierPractice;
 
-public interface Animal {
+public interface Server {
+    void runServer();
 }

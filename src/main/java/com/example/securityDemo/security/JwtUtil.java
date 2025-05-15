@@ -17,7 +17,8 @@ public class JwtUtil {
     @Value("${secret.key}")
     private String secretKey;
 
-    private static final Long ACCESS_TOKEN_VALIDITY = 1000 * 60 * 60L;
+//    private static final Long ACCESS_TOKEN_VALIDITY = 1000 * 60 * 60L;
+    private static final Long ACCESS_TOKEN_VALIDITY = 1000 * 10L;
     private static final Long REFRESH_TOKEN_VALIDITY = 1000 * 60 * 60 * 24 * 7L;
     private static final String ACCESS = "Access";
     private static final String REFRESH = "Refresh";

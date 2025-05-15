@@ -5,6 +5,7 @@ import com.example.securityDemo.enumerations.Gender;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
+import net.minidev.json.annotate.JsonIgnore;
 
 @Entity
 @NamedQueries({
@@ -19,26 +20,26 @@ import lombok.Data;
         )
 })
 @Data
+
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
 
-    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "password", nullable = false)
+    @JsonIgnore
     private String password;
 
-    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "role_type", nullable = false)
     private RoleType roleType;
 
-    @Column(name = "gender", nullable = false)
     private Gender gender;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Address address;
 }

@@ -16,10 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v1/auth")
@@ -67,8 +65,15 @@ public class authController {
         final String accessToken = jwtUtil.generateAccessToken(loginRequestDto.getUsername());
         final String refreshToken = jwtUtil.generateRefreshToken(loginRequestDto.getUsername());
 
+        User user = userService.findByUserName(loginRequestDto.getUsername());
+
         loginResponseDto.setAccessToken(accessToken);
         loginResponseDto.setRefreshToken(refreshToken);
+        loginResponseDto.setName(user.getName());
+        loginResponseDto.setUsername(user.getUsername());
+        loginResponseDto.setEmail(user.getEmail());
+        loginResponseDto.setRoleType(user.getRoleType());
+        loginResponseDto.setGender(user.getGender());
         return ResponseEntity.status(HttpStatus.OK).body(loginResponseDto);
     }
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="20250127-create table user" author="Suraj Acharya">
+        <createTable tableName="user">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(255)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="role_type" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gender" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20150515-create-table-address" author="Suraj Acharya">
+        <createTable tableName="address">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" unique="true" nullable="false"/>
+            </column>
+            <column name="province" type="text"/>
+            <column name="district" type="text"/>
+            <column name="municipality" type="text"/>
+            <column name="tole" type="text"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20250515-alter-table-user-add-column-address-id" author="Suraj Acharya">
+        <addColumn tableName="user">
+            <column name="address_id" type="bigint"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="user" baseColumnNames="address_id"
+                                 constraintName="fk_user_user_id_address_address_id"
+                                 referencedTableName="address"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

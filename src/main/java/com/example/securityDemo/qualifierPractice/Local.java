@@ -3,5 +3,9 @@ package com.example.securityDemo.qualifierPractice;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Cat implements Animal{
+public class Local implements Server {
+    @Override
+    public void runServer() {
+
+    }
 }

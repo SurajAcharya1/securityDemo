@@ -29,7 +29,12 @@ public class SecurityConfig {
             "/v3/api-docs/**",
             "/swagger-ui/**",
             "/swagger-ui.html",
+            "/swagger-ui/index.html",
+            "/swagger-ui/index.html/**",
             "/monitor/**",
+            "/kafka/**",
+            "/kafka/receive",
+            "/kafka/send",
     };
 
     public SecurityConfig(JwtFilter jwtFilter) {
@@ -38,10 +43,12 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
+        http.cors(cors -> {}).csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                 authorizeRequests -> authorizeRequests
                         .requestMatchers(WHITE_LIST_URL).permitAll()
+                        .requestMatchers("/v1/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/v1/user/**").hasAnyRole("ADMIN", "USER")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(

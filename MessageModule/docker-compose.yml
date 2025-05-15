@@ -1,0 +1,28 @@
+version: '3'
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    depends_on:
+      - zookeeper
+    ports:
+      - "9093:9093"
+      - "9092:9092"  # Expose 9092 for external access (used in producers)
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092  # External access for clients
+      KAFKA_LISTENER_SECURITY_PROTOCOL: PLAINTEXT
+      KAFKA_LISTENER_NAME_INTERNAL: INTERNAL
+      KAFKA_LISTENER_INTERNAL_PORT: 9093
+      KAFKA_LISTENER_INTERNAL: INTERNAL://0.0.0.0:9093  # Internal communication between brokers
+      KAFKA_LISTENER_EXTERNAL: PLAINTEXT://localhost:9092  # Exposed to external clients
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"  # Enable auto-topic creation
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1

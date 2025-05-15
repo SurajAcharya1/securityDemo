@@ -2,6 +2,8 @@ package com.example.securityDemo.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,13 +22,13 @@ public class UserController {
             summary = "API for getting user data",
             security = {@SecurityRequirement(name = "bearerAuth")}
     )
-    public String getUser() {
-        return "user data";
+    public ResponseEntity<String> getUser() {
+        return ResponseEntity.status(HttpStatus.OK).body("\"User data\"");
     }
 
-    @GetMapping("/getAdmin")
+    @GetMapping()
     @PreAuthorize("hasRole('ADMIN')")
-    public String getAdmin() {
-        return "admin data";
+    public ResponseEntity<String> getAdmin() {
+        return ResponseEntity.status(HttpStatus.OK).body("\"Admin data\"");
     }
 }
