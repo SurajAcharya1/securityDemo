@@ -4,6 +4,7 @@ import com.example.securityDemo.RoleType;
 import com.example.securityDemo.dto.LoginRequestDto;
 import com.example.securityDemo.dto.LoginResponseDto;
 import com.example.securityDemo.entity.User;
+import com.example.securityDemo.qualifierPractice.ServerRunner;
 import com.example.securityDemo.record.SignInRequestRecord;
 import com.example.securityDemo.security.CustomUserDetailService;
 import com.example.securityDemo.security.JwtUtil;
@@ -27,14 +28,16 @@ public class authController {
     public final AuthenticationManager authenticationManager;
     public final UserService userService;
     public final JwtUtil jwtUtil;
+    public final ServerRunner serverRunner;
 
     public authController(CustomUserDetailService customUserDetailService,
                           AuthenticationManager authenticationManager, UserService userService,
-                          JwtUtil jwtUtil) {
+                          JwtUtil jwtUtil, ServerRunner serverRunner) {
         this.customUserDetailService = customUserDetailService;
         this.userService = userService;
         this.jwtUtil = jwtUtil;
         this.authenticationManager = authenticationManager;
+        this.serverRunner = serverRunner;
     }
 
     @PostMapping("/sign-in")
@@ -53,6 +56,7 @@ public class authController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDto loginRequestDto) {
+        serverRunner.getLocal().runServer();
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequestDto.getUsername(),

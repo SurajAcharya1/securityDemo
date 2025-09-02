@@ -17,8 +17,11 @@ public class MockServiceB {
         this.mockServiceC = mockServiceC;
     }
 
+    DemoFunctionalInterface demoFunctionalInterface = Integer::sum;
+
     @Transactional
     String intermediate(String s) {
+        demoFunctionalInterface.add(5, 6);
         try {
             return mockServiceC.end("asd");
         } catch (Exception e) {

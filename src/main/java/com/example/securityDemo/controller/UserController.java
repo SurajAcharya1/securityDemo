@@ -26,7 +26,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body("\"User data\"");
     }
 
-    @GetMapping()
+    @GetMapping("/getAdmin")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> getAdmin() {
         return ResponseEntity.status(HttpStatus.OK).body("\"Admin data\"");

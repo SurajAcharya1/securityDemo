@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 public class ServerRunner {
 
     private final Server local;
-
     private final Server production;
 
     public ServerRunner(@Qualifier("local") Server local,
@@ -16,14 +15,12 @@ public class ServerRunner {
         this.production = production;
     }
 
-    void st() {
-        local.runServer();
+    public Server getLocal() {
+        return local;
     }
 
-    void stp() {
-        production.runServer();
+    public Server getProduction() {
+        return production;
     }
-
-
 
 }
